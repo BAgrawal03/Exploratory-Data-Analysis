@@ -1,0 +1,30 @@
+---
+title: "Plot3"
+author: "Bhumika Agrawal"
+date: "5/28/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+NEI <- readRDS('summarySCC_PM25.rds')
+SCC <- readRDS('Source_Classification_Code.rds')
+library(ggplot2)
+```
+
+```{r}
+baltimoreData <- subset(NEI, fips == "24510")
+```
+
+
+```{r}
+png(file = "./plot3.png",width = 480, height = 480)
+ggplot(baltimoreData,aes(factor(year),Emissions,fill = type)) + geom_bar(stat = "identity") + labs(x = "Year", y = "Emissions(in tons)", title = "Emissions in Baltimore by type") + facet_grid(.~type)
+dev.off()
+```
+
+Decreasing Emissions - Non-road, Nonpoint and Onroad
+Increasing Emissions - Point
